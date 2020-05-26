@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+<style>
+  .brk-table {
+    margin-top: 16px;
+    text-align: left; 
+    font-size: 400; 
+    color: #3C424F; 
+    height: 20px;
+  }
+
+  .brk-table td {
+    padding: 3px;
+    border: 0px;
+  }
+</style>
+
+<body>
+  <div class="col-sm-12 col-md-12 col-xs-12">
+    <div class="row">
+      <label>
+        <spam class="wpcf7-form-control-wrap">
+          <input type="text" id="filtro_bebidas" onkeyup="filerBebidas()" placeholder="Buscar Cidade" 
+          class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+        </spam>
+      </label>
+    </div>
+
+    <table id="table_cities_bebidas" class="brk-table">
+      
+    </table>
+  </div>
+</body>
+
+<script>
+  const citiesBebidas = [
+    { name: 'AGUAI'},
+    { name: 'Aguas da Prata'},
+    { name: 'Altinopolis'},
+    { name: 'AMERICO BRASILIENSE'},
+    { name: 'Analandia'},
+    { name: 'ARAMINA'},
+    { name: 'Araraquara'},
+    { name: 'Ariranha'},
+    { name: 'Barretos'},
+    { name: 'Barrinha'},
+    { name: 'Batatais'},
+    { name: 'Bebedouro'},
+    { name: 'Brodowski'},
+    { name: 'Buritizal'},
+    { name: 'CACONDE'},
+    { name: 'Cajobi'},
+    { name: 'Cajuru'},
+    { name: 'Candido Rodrigues'},
+    { name: 'CASA BRANCA'},
+    { name: 'Cassia dos Coqueiros'},
+    { name: 'Colina'},
+    { name: 'Colombia'},
+    { name: 'Cravinhos'},
+    { name: 'Cristais Paulista'},
+    { name: 'Descalvado'},
+    { name: 'Divinolandia'},
+    { name: 'Dobrada'},
+    { name: 'Dumont'},
+    { name: 'Embauba'},
+    { name: 'Espirito Santo do Pinhal'},
+    { name: 'FERNANDO PRESTES'},
+    { name: 'Franca'},
+    { name: 'Guaira'},
+    { name: 'Guara'},
+    { name: 'Guariba'},
+    { name: 'GUATAPARA'},
+    { name: 'Igarapava'},
+    { name: 'Ipua'},
+    { name: 'Itirapina'},
+    { name: 'Itirapua'},
+    { name: 'Itobi'},
+    { name: 'Ituverava'},
+    { name: 'Jaborandi'},
+    { name: 'Jaboticabal'},
+    { name: 'Jardinopolis'},
+    { name: 'Jeriquara'},
+    { name: 'Leme'},
+    { name: 'Luis Antonio'},
+    { name: 'Matao'},
+    { name: 'Miguelopolis'},
+    { name: 'Mococa'},
+    { name: 'Monte Alto'},
+    { name: 'Monte Azul Paulista'},
+    { name: 'Morro Agudo'},
+    { name: 'Motuca'},
+    { name: 'Nuporanga'},
+    { name: 'Orlandia'},
+    { name: 'Palmares Paulista'},
+    { name: 'Paraiso'},
+    { name: 'Patrocinio Paulista'},
+    { name: 'PEDREGULHO'},
+    { name: 'PIRANGI'},
+    { name: 'Pirassununga'},
+    { name: 'Pitangueiras'},
+    { name: 'Pontal'},
+    { name: 'Porto Ferreira'},
+    { name: 'Pradopolis'},
+    { name: 'Restinga'},
+    { name: 'Ribeirao Corrente'},
+    { name: 'RIBEIRAO PRETO'},
+    { name: 'Rifaina'},
+    { name: 'Rincao'},
+    { name: 'Sales Oliveira'},
+    { name: 'Santa Adelia'},
+    { name: 'Santa Cruz da Esperanca'},
+    { name: 'Santa Cruz das Palmeiras'},
+    { name: 'Santa Ernestina'},
+    { name: 'Santa Lucia'},
+    { name: 'Santa Rita do Passa Quatro'},
+    { name: 'Santa Rosa de Viterbo'},
+    { name: 'Santo Antonio da Alegria'},
+    { name: 'Santo Antonio do Jardim'},
+    { name: 'Sao Carlos'},
+    { name: 'Sao Joao da Boa Vista'},
+    { name: 'Sao Joaquim da Barra'},
+    { name: 'Sao Jose da Bela Vista'},
+    { name: 'Sao Jose do Rio Pardo'},
+    { name: 'SAO PAULO'},
+    { name: 'Sao Sebastiao da Grama'},
+    { name: 'Sao Simao'},
+    { name: 'Serra Azul'},
+    { name: 'Serrana'},
+    { name: 'Sertaozinho'},
+    { name: 'Taiacu'},
+    { name: 'Taiuva'},
+    { name: 'Tambau'},
+    { name: 'Tapiratiba'},
+    { name: 'Taquaral'},
+    { name: 'Taquaritinga'},
+    { name: 'Taubate'},
+    { name: 'Terra Roxa'},
+    { name: 'Vargem Grande do Sul'},
+    { name: 'Viradouro'},
+    { name: 'Vista Alegre do Alto'},
+  ]
+
+  function setupArrayBebidas() {
+
+    const table = document.getElementById("table_cities_bebidas");
+
+    for (city of citiesBebidas) {
+      let tr = document.createElement('tr');
+      let td = document.createElement('td');
+      
+      td.innerText = city.name;
+      
+      tr.appendChild(td);
+      table.appendChild(tr);
+    }
+  }  
+
+  function filerBebidas(){
+    var input = removeAccent(document.getElementById("filtro_bebidas").value.toLowerCase().trim());
+
+    console.log(input);
+
+    console.table(citiesBebidas);
+
+    let table = document.getElementById("table_cities_bebidas");
+    
+    for (var i = 0; i < citiesBebidas.length; i++) {
+      let name = removeAccent(citiesBebidas[i].name.toLowerCase().trim());
+      let tr = table.childNodes[i + 1];
+
+      console.log("display:" + tr.style.display);
+
+      if (name.includes(input)) {
+        tr.style.display = "";
+      } else {
+        tr.style.display = "none";
+      }
+    }
+  }
+
+  function removeAccent(text)
+{       
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    return text;                 
+}
+
+  setupArrayBebidas();
+</script>
+
+</html>

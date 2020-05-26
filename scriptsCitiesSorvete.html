@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+
+<style>
+  .brk-table {
+    margin-top: 16px;
+    text-align: left; 
+    font-size: 400; 
+    color: #3C424F; 
+    height: 20px;
+  }
+
+  .brk-table td {
+    padding: 3px;
+    border: 0px;
+  }
+</style>
+
+<body>
+  <div class="col-sm-12 col-md-12 col-xs-12">
+    <div class="row">
+      <label>
+        <spam class="wpcf7-form-control-wrap">
+          <input type="text" id="filtro_sorvete" onkeyup="filerSorvete()" placeholder="Buscar Cidade" 
+          class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+        </spam>
+      </label>
+    </div>
+
+    <table id="table_cities_sorvete" class="brk-table">
+      
+    </table>
+  </div>
+</body>
+
+<script>
+  const citiesSorvete = [
+  { name: 'Adamantina'},
+  { name: 'Aguai'},
+  { name: 'Agudos'},
+  { name: 'Altinopolis'},
+  { name: 'Alvares Florence'},
+  { name: 'Americo Brasiliense'},
+  { name: 'Andradina'},
+  { name: 'Aracatuba'},
+  { name: 'Araraquara'},
+  { name: 'Arealva'},
+  { name: 'Areiopolis'},
+  { name: 'Assis'},
+  { name: 'Auriflama'},
+  { name: 'Avare'},
+  { name: 'Balsamo'},
+  { name: 'Bariri'},
+  { name: 'Barra Bonita'},
+  { name: 'Barretos'},
+  { name: 'Barrinha'},
+  { name: 'Bastos'},
+  { name: 'Batatais'},
+  { name: 'Bauru'},
+  { name: 'Bebedouro'},
+  { name: 'Birigui'},
+  { name: 'Boa Esperanca Do Sul'},
+  { name: 'Bocaina'},
+  { name: 'Bofete'},
+  { name: 'Boraceia'},
+  { name: 'Botucatu'},
+  { name: 'Brodowski'},
+  { name: 'Brotas'},
+  { name: 'Cabralia Paulista'},
+  { name: 'Caconde'},
+  { name: 'Cafelandia               '},
+  { name: 'Caiabu'},
+  { name: 'Cajuru'},
+  { name: 'Candido Mota'},
+  { name: 'Candido Rodrigues'},
+  { name: 'Casa Branca'},
+  { name: 'Cassia dos Coqueiros'},
+  { name: 'Castilho'},
+  { name: 'Catanduva'},
+  { name: 'Cerqueira Cesar'},
+  { name: 'Chavantes'},
+  { name: 'Colina'},
+  { name: 'Cravinhos'},
+  { name: 'Cristais Paulista'},
+  { name: 'Descalvado'},
+  { name: 'Divinolandia'},
+  { name: 'Dobrada'},
+  { name: 'Dois Corregos'},
+  { name: 'Dolcinopolis'},
+  { name: 'Dourado'},
+  { name: 'Dracena'},
+  { name: 'Duartina'},
+  { name: 'Dumont'},
+  { name: 'Emilianopolis'},
+  { name: 'Espirito Santo Do Pinhal'},
+  { name: 'Fartura'},
+  { name: 'Fernando Prestes'},
+  { name: 'Fernandopolis'},
+  { name: 'Franca'},
+  { name: 'Galia'},
+  { name: 'Garca'},
+  { name: 'Gaviao Peixoto'},
+  { name: 'Guaira'},
+  { name: 'Guapiacu'},
+  { name: 'Guara'},
+  { name: 'Guaraci'},
+  { name: 'Guararapes'},
+  { name: 'Guariba'},
+  { name: 'Guatapara'},
+  { name: 'Iacri'},
+  { name: 'Ibate'},
+  { name: 'Ibira'},
+  { name: 'Ibitinga'},
+  { name: 'Icem'},
+  { name: 'Igarapava'},
+  { name: 'Ilha Solteira'},
+  { name: 'Indiana'},
+  { name: 'Inubia Paulista'},
+  { name: 'Ipaussu'},
+  { name: 'Ipua'},
+  { name: 'Irapuru'},
+  { name: 'Itai'},
+  { name: 'Itapolis'},
+  { name: 'Itapui'},
+  { name: 'Itatinga'},
+  { name: 'Itirapua'},
+  { name: 'Itobi'},
+  { name: 'Ituverava'},
+  { name: 'Jaboticabal'},
+  { name: 'Jales'},
+  { name: 'Jardinopolis'},
+  { name: 'Jau'},
+  { name: 'Jose Bonifacio'},
+  { name: 'Junqueiropolis'},
+  { name: 'Leme'},
+  { name: 'Leme                     '},
+  { name: 'Lencois Paulista'},
+  { name: 'Lins'},
+  { name: 'Lucelia'},
+  { name: 'Luis Antonio'},
+  { name: 'Magda'},
+  { name: 'Mariapolis'},
+  { name: 'Marilia'},
+  { name: 'Marilia                  '},
+  { name: 'Martinopolis'},
+  { name: 'Matao'},
+  { name: 'Mendonca'},
+  { name: 'Meridiano'},
+  { name: 'Mineiros Do Tiete'},
+  { name: 'Mirandopolis'},
+  { name: 'Mirassol'},
+  { name: 'Mococa'},
+  { name: 'Mococa                   '},
+  { name: 'Monte Alto'},
+  { name: 'Monte Aprazivel'},
+  { name: 'Monte Azul Paulista'},
+  { name: 'Monte Castelo'},
+  { name: 'Motuca'},
+  { name: 'Nhandeara'},
+  { name: 'Nova Castilho'},
+  { name: 'Nova Granada'},
+  { name: 'Nuporanga'},
+  { name: 'Olimpia'},
+  { name: 'Olimpia                  '},
+  { name: 'Onda Verde'},
+  { name: 'Oriente'},
+  { name: 'Orlandia'},
+  { name: 'Osvaldo Cruz'},
+  { name: 'Osvaldo Cruz             '},
+  { name: 'Ourinhos'},
+  { name: 'Ouro Verde'},
+  { name: 'Ouro Verde               '},
+  { name: 'Palmital'},
+  { name: 'Panorama'},
+  { name: 'Paraguacu Paulista'},
+  { name: 'Parapua'},
+  { name: 'Pardinho'},
+  { name: 'Patrocinio Paulista'},
+  { name: 'Pauliceia'},
+  { name: 'Pauliceia                '},
+  { name: 'Paulo De Faria'},
+  { name: 'Pederneiras'},
+  { name: 'Pedregulho'},
+  { name: 'Pedrinhas Paulista'},
+  { name: 'Penapolis'},
+  { name: 'Pindorama'},
+  { name: 'Piraju'},
+  { name: 'Pirajui'},
+  { name: 'Pirapozinho'},
+  { name: 'Pirassununga'},
+  { name: 'Piratininga'},
+  { name: 'Pitangueiras'},
+  { name: 'Planalto'},
+  { name: 'Pompeia'},
+  { name: 'Pontal'},
+  { name: 'Porto Ferreira'},
+  { name: 'Potirendaba'},
+  { name: 'Pracinha'},
+  { name: 'Pradopolis'},
+  { name: 'Presidente Bernardes'},
+  { name: 'Presidente Epitacio'},
+  { name: 'Presidente Prudent'},
+  { name: 'Presidente Prudent'},
+  { name: 'Presidente Venceslau'},
+  { name: 'Promissao'},
+  { name: 'Quata'},
+  { name: 'Quintana'},
+  { name: 'Rancharia'},
+  { name: 'Regente Feijo'},
+  { name: 'Restinga'},
+  { name: 'Ribeirao Corrente'},
+  { name: 'Ribeirao Preto'},
+  { name: 'Rifaina'},
+  { name: 'Rubineia'},
+  { name: 'Sales Oliveira'},
+  { name: 'Salmourao'},
+  { name: 'Santa Adelia'},
+  { name: 'Santa Clara D Oeste'},
+  { name: 'Santa Cruz Da Conceicao'},
+  { name: 'Santa Cruz Da Esperanca'},
+  { name: 'Santa Cruz Das Palmeiras'},
+  { name: 'Santa Cruz Do Rio Pardo'},
+  { name: 'Santa Ernestina'},
+  { name: 'Santa Fe Do Sul'},
+  { name: 'Santa Fe Do Sul          '},
+  { name: 'Santa Lucia'},
+  { name: 'Santa Rita Do Passa Quatro'},
+  { name: 'Santa Rosa De Viterbo'},
+  { name: 'Santana Da Ponte Pensa'},
+  { name: 'Santo Antonio Da Alegria'},
+  { name: 'Santopolis Do Aguapei'},
+  { name: 'Sao Carlos'},
+  { name: 'Sao Joao Da Boa Vista'},
+  { name: 'Sao Joaquim Da Barra'},
+  { name: 'Sao Jose Da Bela Vista'},
+  { name: 'Sao Jose Do Rio Pardo'},
+  { name: 'Sao Jose Do Rio Preto'},
+  { name: 'Sao Jose Do Rio Preto    '},
+  { name: 'Sao Manuel'},
+  { name: 'Sao Sebastiao Da Grama'},
+  { name: 'Sao Simao'},
+  { name: 'Serra Azul'},
+  { name: 'Serrana'},
+  { name: 'Sertaozinho'},
+  { name: 'Sertaozinho'},
+  { name: 'Severinia'},
+  { name: 'Sud Mennucci'},
+  { name: 'Taiacu'},
+  { name: 'Taiuva'},
+  { name: 'Tambau'},
+  { name: 'Tanabi'},
+  { name: 'Tapiratiba'},
+  { name: 'Taquaritinga'},
+  { name: 'Tarabai'},
+  { name: 'Teodoro Sampaio'},
+  { name: 'Torrinha'},
+  { name: 'Tupa'},
+  { name: 'Tupi Paulista'},
+  { name: 'Ubarana'},
+  { name: 'Urania'},
+  { name: 'Valparaiso'},
+  { name: 'Vargem Grande Do Sul'},
+  { name: 'Vera Cruz'},
+  { name: 'Votuporanga'},
+]
+
+  function setupArraySorvete() {
+
+    const table = document.getElementById("table_cities_sorvete");
+
+    for (city of citiesSorvete) {
+      let tr = document.createElement('tr');
+      let td = document.createElement('td');
+      
+      td.innerText = city.name;
+      
+      tr.appendChild(td);
+      table.appendChild(tr);
+    }
+  }  
+
+  function filerSorvete(){
+    var input = removeAccent(document.getElementById("filtro_sorvete").value.toLowerCase().trim());
+
+    console.log(input);
+
+    console.table(citiesSorvete);
+
+    let table = document.getElementById("table_cities_sorvete");
+    
+    for (var i = 0; i < citiesSorvete.length; i++) {
+      let name = removeAccent(citiesSorvete[i].name.toLowerCase().trim());
+      let tr = table.childNodes[i + 1];
+
+      console.log("display:" + tr.style.display);
+
+      if (name.includes(input)) {
+        tr.style.display = "";
+      } else {
+        tr.style.display = "none";
+      }
+    }
+  }
+
+  function removeAccent(text)
+{       
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    return text;                 
+}
+
+  setupArraySorvete();
+</script>
+
+</html>
